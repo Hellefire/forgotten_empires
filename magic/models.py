@@ -57,10 +57,9 @@ class Spell(models.Model):
         unique_together = (('name', 'school', 'specialty'),)
 
     def __str__(self):
+        source = str(self.school)
         if self.specialty:
-            source = str(self.specialty)
-        else:
-            source = str(self.school)
+            source = '{} - {}'.format(source, str(self.specialty))
         return '{} - {}'.format(self.name, source)
 
 
