@@ -36,6 +36,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'alchemy',
+    'character',
+    'class',
+    'equipment',
+    'event',
+    'home',
+    'magic',
+    'player',
+    'race',
+    'skill'
 ]
 
 MIDDLEWARE = [
