@@ -339,12 +339,13 @@ class Equipmenttype(models.Model):
 
 
 class Gameevent(models.Model):
-    name = models.CharField(unique=True, max_length=256, db_collation='latin1_swedish_ci')
+    name = models.CharField(unique=True, max_length=128, db_collation='latin1_swedish_ci')
     location = models.ForeignKey('Location', models.DO_NOTHING, db_column='location')
     start_utc = models.DateTimeField()
     end_utc = models.DateTimeField()
     xp_multiplier = models.FloatField()
     is_special = models.PositiveIntegerField()
+    description = models.TextField()
 
     class Meta:
         managed = False
@@ -447,11 +448,12 @@ class Racialskilltype(models.Model):
 
 
 class Shardevent(models.Model):
-    name = models.CharField(unique=True, max_length=256, db_collation='latin1_swedish_ci')
-    location = models.ForeignKey(Location, models.DO_NOTHING, db_column='location', blank=True, null=True)
+    name = models.CharField(unique=True, max_length=128, db_collation='latin1_swedish_ci')
+    location = models.ForeignKey(Location, models.DO_NOTHING, db_column='location')
     start_utc = models.DateTimeField(blank=True, null=True)
     end_utc = models.DateTimeField(blank=True, null=True)
     shards = models.SmallIntegerField(blank=True, null=True)
+    description = models.TextField()
 
     class Meta:
         managed = False
