@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import (
+    AlchemySpecialty, Alchemy, AlchemyDuration
+)
+
+
+admin.site.register(AlchemySpecialty)
+admin.site.register(Alchemy)
+admin.site.register(AlchemyDuration)
