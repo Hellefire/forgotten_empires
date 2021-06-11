@@ -31,21 +31,22 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'empires.apps.MyAdminConfig',
+    'alchemy.apps.AlchemyConfig',
+    'character.apps.CharacterConfig',
+    'charclass.apps.CharclassConfig',
+    'equipment.apps.EquipmentConfig',
+    'event.apps.EventConfig',
+    'generic.apps.GenericConfig',
+    'home.apps.HomeConfig',
+    'magic.apps.MagicConfig',
+    'player.apps.PlayerConfig',
+    'race.apps.RaceConfig',
+    'skill.apps.SkillConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'alchemy',
-    'character',
-    'class',
-    'equipment',
-    'event',
-    'home',
-    'magic',
-    'player',
-    'race',
-    'skill'
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
