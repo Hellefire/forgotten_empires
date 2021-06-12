@@ -74,4 +74,4 @@ class SpellDuration(models.Model):
 
     def __str__(self):
         return '{} - {} {}'.format(
-            str(self.spell), str(self.count), self.timetype)
+            str(self.spell), str(self.count), str(self.timetype))
