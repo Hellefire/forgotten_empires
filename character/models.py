@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from empires.stdfields.fields import EnumCharField
@@ -10,6 +11,8 @@ from player.models import Player
 from race.models import Race, SubRace
 
 from .enums import chartype
+
+User = settings.AUTH_USER_MODEL
 
 
 class Character(models.Model):
@@ -59,6 +62,7 @@ class CharacterEffects(models.Model):
     notes = models.TextField(blank=True, null=True)
     start_utc = models.DateTimeField(blank=True, null=True)
     end_utc = models.DateTimeField(blank=True, null=True)
+    entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
     is_active = models.BooleanField()
 
@@ -78,6 +82,7 @@ class CharacterEquipment(models.Model):
     notes = models.TextField(blank=True, null=True)
     acquired_utc = models.DateTimeField()
     lost_utc = models.DateTimeField(blank=True, null=True)
+    entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
 
     class Meta:
@@ -90,6 +95,7 @@ class CharacterEquipment(models.Model):
 class CharacterShardXP(models.Model):
     assigned_to = models.ForeignKey(Character, models.RESTRICT)
     xp_assigned = models.IntegerField()
+    entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
 
     class Meta:

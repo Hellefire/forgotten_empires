@@ -25,6 +25,7 @@ class PlayerGameEvent(models.Model):
     player = models.ForeignKey(Player, models.RESTRICT)
     xp_multiplier = models.FloatField()
     xp_earned = models.PositiveIntegerField(blank=True, null=True)
+    entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
 
     class Meta:
@@ -39,6 +40,7 @@ class PlayerShardEvent(models.Model):
     shardevent = models.ForeignKey(ShardEvent, models.RESTRICT)
     player = models.ForeignKey(Player, models.RESTRICT)
     shards_earned = models.PositiveIntegerField()
+    entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
 
     class Meta:
