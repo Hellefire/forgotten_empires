@@ -1,9 +1,14 @@
+from django.conf import settings
 from django.db import models
 
 from event.models import GameEvent, ShardEvent
 
+User = settings.AUTH_USER_MODEL
+
 
 class Player(models.Model):
+    name = models.CharField(unique=True, max_length=128)
+    user = models.OneToOneField(User, models.SET_NULL, null=True, blank=True)
     is_active = models.BooleanField()
     shards_earned = models.PositiveIntegerField()
     shards_spent = models.PositiveIntegerField()
@@ -12,7 +17,7 @@ class Player(models.Model):
         db_table = 'player'
 
     def __str__(self):
-        return 'Player'
+        return self.name
 
 
 class PlayerGameEvent(models.Model):
