@@ -1,10 +1,7 @@
 from django.contrib import admin
 
-from .models import (
-    Location, GameEvent, ShardEvent
-)
+from .models import GameEvent, ShardEvent
 
 
-admin.site.register(Location)
 admin.site.register(GameEvent)
 admin.site.register(ShardEvent)
