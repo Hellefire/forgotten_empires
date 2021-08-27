@@ -31,15 +31,26 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=256)),
                 ('skilltype', empires.stdfields.fields.EnumCharField(choices=[('RACE', 'Racial'), ('CLASS', 'Class'), ('WEAPON', 'Weapon'), ('STUDY', 'Academic'), ('MIND', 'Mental'), ('MAGIC', 'Magic'), ('CRAFT', 'Crafting'), ('JOB', 'Profession'), ('GEN', 'General'), ('STRIKE', 'Strike'), ('MOVE', 'Maneuver'), ('STANCE', 'Stance')], max_length=6)),
-                ('xp_cost', models.PositiveSmallIntegerField()),
                 ('multiple', models.PositiveSmallIntegerField()),
                 ('call', models.CharField(blank=True, max_length=128, null=True)),
                 ('description', models.TextField()),
-                ('charclass', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='charclass.charclass')),
             ],
             options={
                 'db_table': 'skill',
-                'unique_together': {('name', 'skilltype', 'charclass')},
+                'unique_together': {('name', 'skilltype')},
+            },
+        ),
+        migrations.CreateModel(
+            name='SkillCost',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('xp_cost', models.PositiveSmallIntegerField()),
+                ('charclass', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='charclass.charclass')),
+                ('skill', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='skill.skill')),
+            ],
+            options={
+                'db_table': 'skillcost',
+                'unique_together': {('skill', 'charclass')},
             },
         ),
         migrations.CreateModel(
