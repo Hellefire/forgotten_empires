@@ -22,22 +22,33 @@ class Skill(models.Model):
     name = models.CharField(max_length=256)
     skilltype = EnumCharField(
         choices=skilltype.all(), max_length=skilltype.max_length())
-    charclass = models.ForeignKey(
-        CharClass, models.SET_NULL, blank=True, null=True)
-    xp_cost = models.PositiveSmallIntegerField()
     multiple = models.PositiveSmallIntegerField()
     call = models.CharField(max_length=128, blank=True, null=True)
     description = models.TextField()
 
     class Meta:
         db_table = 'skill'
-        unique_together = (('name', 'skilltype', 'charclass'),)
+        unique_together = (('name', 'skilltype'),)
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, str(self.skilltype))
+
+
+class SkillCost(models.Model):
+    skill = models.ForeignKey(Skill, models.RESTRICT)
+    charclass = models.ForeignKey(
+        CharClass, models.SET_NULL, blank=True, null=True)
+    xp_cost = models.PositiveSmallIntegerField()
+
+    class Meta:
+        db_table = 'skillcost'
+        unique_together = (('skill', 'charclass'),)
 
     def __str__(self):
         cclass = ''
         if self.charclass:
             cclass = ' - {}'.format(str(self.charclass))
-        return '{} - {}{}'.format(self.name, str(self.skilltype), cclass)
+        return '{}{}'.format(str(self.skill), cclass)
 
 
 class Race_RacialSkillType(models.Model):
