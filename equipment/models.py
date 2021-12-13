@@ -9,9 +9,9 @@ from .enums import equipmenttype, weapontype
 
 class ArmourType(models.Model):
     name = models.CharField(unique=True, max_length=32)
-    points = models.IntegerField()
-    slots = models.IntegerField()
-    worn = models.IntegerField()
+    points = models.PositiveSmallIntegerField()
+    slots = models.PositiveSmallIntegerField()
+    worn = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'armourtype'

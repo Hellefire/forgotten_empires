@@ -3,14 +3,16 @@ from django.db import models
 
 from empires.stdfields.fields import EnumCharField
 
+from alchemy.models import AlchemySpecialty
 from charclass.models import CharClass
+from character.enums import chartype
 from equipment.enums import armourlocation, equipmentsource
 from equipment.models import ArmourType, Equipment
-from magic.models import Deity
+from generic.enums import handed
+from magic.models import Deity, MagicSchool, MagicSubSchool
 from player.models import Player
 from race.models import Race, SubRace
-
-from .enums import chartype
+from skill.models import Skill
 
 User = settings.AUTH_USER_MODEL
 
@@ -25,14 +27,14 @@ class Character(models.Model):
         SubRace, models.SET_NULL, blank=True, null=True)
     charclass = models.ForeignKey(CharClass, models.RESTRICT)
     deity = models.ForeignKey(Deity, models.SET_NULL, blank=True, null=True)
-    event_count = models.PositiveSmallIntegerField()
-    xp_earned = models.PositiveSmallIntegerField()
-    xp_spent = models.PositiveSmallIntegerField()
-    level = models.PositiveIntegerField()
-    death_count = models.PositiveSmallIntegerField()
-    coin_iron = models.PositiveIntegerField()
-    bank_iron = models.PositiveIntegerField()
-    is_dead = models.BooleanField()
+    event_count = models.PositiveSmallIntegerField(default=0)
+    xp_earned = models.PositiveSmallIntegerField(default=10)
+    xp_spent = models.PositiveSmallIntegerField(default=0)
+    level = models.PositiveSmallIntegerField(default=1)
+    death_count = models.PositiveSmallIntegerField(default=0)
+    coin_iron = models.PositiveIntegerField(default=0)
+    bank_iron = models.PositiveIntegerField(default=0)
+    is_dead = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'character'
@@ -94,7 +96,7 @@ class CharacterEquipment(models.Model):
 
 class CharacterShardXP(models.Model):
     assigned_to = models.ForeignKey(Character, models.RESTRICT)
-    xp_assigned = models.IntegerField()
+    xp_assigned = models.PositiveSmallIntegerField()
     entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
 
@@ -106,3 +108,71 @@ class CharacterShardXP(models.Model):
         return '{} {} - {}'.format(
             str(self.character), str(self.xp_assigned),
             self.entered_utc.strftime('%Y-%m-%d'))
+
+
+class Character_Skill(models.Model):
+    character = models.ForeignKey(Character, models.RESTRICT)
+    skill = models.ForeignKey(Skill, models.RESTRICT)
+    level = models.PositiveSmallIntegerField()
+
+    class Meta:
+        db_table = 'character_skill'
+        unique_together = (('character', 'skill'),)
+
+    def __str__(self):
+        return '{} {} - {}'.format(
+            str(self.character), self.skill.name, level)
+
+
+class Character_Skill_Hand(models.Model):
+    character_skill = models.ForeignKey(Character_Skill, models.RESTRICT)
+    hand = EnumCharField(
+        choices=handed.all(), max_length=handed.max_length())
+    level = models.PositiveSmallIntegerField()
+
+    class Meta:
+        db_table = 'character_skill_hand'
+        unique_together = (('character_skill', 'hand'),)
+
+    def __str__(self):
+        return '{} {} {} - {}'.format(
+            str(self.character), self.character_skill.skill.name,
+            self.hand, self.level)
+
+
+class Character_AlchemySlots(models.Model):
+    character = models.ForeignKey(Character, models.RESTRICT)
+    specialty = models.ForeignKey(
+        AlchemySpecialty, models.SET_NULL, blank=True, null=True)
+    level = models.PositiveSmallIntegerField()
+    slots = models.PositiveSmallIntegerField()
+
+    class Meta:
+        db_table = 'character_alchemyslots'
+        unique_together = (('character', 'specialty', 'level'),)
+
+    def __str__(self):
+        special = ''
+        if self.specialty:
+            special = ' - {}'.format(str(self.specialty))
+        return '{} {} level {} - {}'.format(
+            str(self.character), special, self.level, self.slots)
+
+
+class Character_SpellSlots(models.Model):
+    character = models.ForeignKey(Character, models.RESTRICT)
+    school = models.ForeignKey(MagicSchool, models.RESTRICT)
+    specialty = models.ForeignKey(MagicSubSchool, models.RESTRICT)
+    level = models.PositiveSmallIntegerField()
+    slots = models.PositiveSmallIntegerField()
+
+    class Meta:
+        db_table = 'character_spellslots'
+        unique_together = (('character', 'school', 'specialty', 'level'),)
+
+    def __str__(self):
+        return '{} {} {} level {} - {}'.format(
+            str(self.character), self.school.name, self.specialty.name,
+            self.level, self.slots)
+
+
