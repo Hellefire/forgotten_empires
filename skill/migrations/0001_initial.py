@@ -16,6 +16,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='SkillType',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=32, unique=True)),
+            ],
+            options={
+                'db_table': 'skilltype',
+            },
+        ),
+        migrations.CreateModel(
             name='RacialSkillType',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -30,7 +40,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=256)),
-                ('skilltype', empires.stdfields.fields.EnumCharField(choices=[('RACE', 'Racial'), ('CLASS', 'Class'), ('WEAPON', 'Weapon'), ('STUDY', 'Academic'), ('MIND', 'Mental'), ('MAGIC', 'Magic'), ('CRAFT', 'Crafting'), ('JOB', 'Profession'), ('GEN', 'General'), ('STRIKE', 'Strike'), ('MOVE', 'Maneuver'), ('STANCE', 'Stance')], max_length=6)),
+                ('skilltype', models.ForeignKey(on_delete=django.db.models.deletion.RESTRICT, to='skill.skilltype')),
                 ('multiple', models.PositiveSmallIntegerField()),
                 ('call', models.CharField(blank=True, max_length=128, null=True)),
                 ('description', models.TextField()),

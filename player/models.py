@@ -9,7 +9,7 @@ User = settings.AUTH_USER_MODEL
 class Player(models.Model):
     name = models.CharField(unique=True, max_length=128)
     user = models.OneToOneField(User, models.SET_NULL, null=True, blank=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
     shards_earned = models.PositiveIntegerField()
     shards_spent = models.PositiveIntegerField()
 
@@ -24,7 +24,7 @@ class PlayerGameEvent(models.Model):
     gameevent = models.ForeignKey(GameEvent, models.RESTRICT)
     player = models.ForeignKey(Player, models.RESTRICT)
     xp_multiplier = models.FloatField()
-    xp_earned = models.PositiveIntegerField(blank=True, null=True)
+    xp_earned = models.PositiveSmallIntegerField(blank=True, null=True)
     entered_by = models.ForeignKey(User, models.RESTRICT)
     entered_utc = models.DateTimeField()
 

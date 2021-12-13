@@ -1,6 +1,12 @@
 from empires.stdfields.models import Enum, EnumValue
 
 
+class attacktype(Enum):
+    MANEUVER = EnumValue('MANEUVER', 'Maneuver')
+    STANCE = EnumValue('STANCE', 'Stance')
+    STRIKE = EnumValue('STRIKE', 'Strike')
+
+
 class skilltype(Enum):
     RACIAL = EnumValue('RACE', 'Racial')
     CLASS = EnumValue('CLASS', 'Class')

@@ -7,7 +7,7 @@ class GameEvent(models.Model):
     start_utc = models.DateTimeField()
     end_utc = models.DateTimeField()
     xp_multiplier = models.FloatField()
-    is_special = models.BooleanField()
+    is_special = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'gameevent'
@@ -21,7 +21,7 @@ class ShardEvent(models.Model):
     description = models.TextField()
     start_utc = models.DateTimeField()
     end_utc = models.DateTimeField()
-    shards = models.SmallIntegerField(blank=True, null=True)
+    shards = models.PositiveSmallIntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'shardevent'
