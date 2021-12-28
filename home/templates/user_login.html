@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forgotten Empires {% if '/admin' in next %}Admin{% else %}User{% endif %} Login</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'empires/css/login.css'%}" type="text/css" />
+</head>
+<body>
+    <section id="id_login" class="wrapper-login">
+        <div class="logo">
+        </div>
+        <div class="clr-bth gradient-text">
+            <h2>Welcome to</h2>
+        </div>
+        <div class="title strong">
+            <h1>Forgotten Empires</h1>
+        </div>
+        <hr />
+        <div class="welcomeText">
+            <h4>
+                If you are an existing user please enter your username and password provided
+                by Forgotten Empires.
+            </h4>
+        </div>
+        <form id="login-form" method="post" action=".">
+            <div class="username">
+                <input type="text" name="username" id="id_username" placeholder="Username..." required="required" />
+            </div>
+            <div class="password">
+                <input type="password" name="password" id="id_password" placeholder="Password..." required="required" />
+            </div>
+            <hr />
+            <div class="rememberMe">
+                <div class="check textRemembMe">
+                    <h4>I agree to the Forgotten Empires <a href="{% url 'terms' %}" >Terms &amp; Conditions</a></h4>
+                </div>
+                <div class="check textRemembMe">
+                    {{ form.terms }}
+                </div>
+            </div>
+            <div class="clr-bth">
+                <input type="submit" class="btn-login" value="log in"/>
+            </div>
+            {% csrf_token %}
+            <input type="hidden" name="this_is_the_login_form" value="1" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+        <div class="msg-block">
+            <div id="msgLogin" class="login-msg">
+                <div id="wrongLogin">
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <h4 class="strong">{{ error|escape }}</h4>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div id="noTermsAccepted" >
+                    {% if form.terms.errors %}
+                        {% for error in form.terms.errors %}
+                            <h4 class="strong">{{ error|escape }}</h4>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="login-footer">
+            <h3>
+                New users please contact administrators to start using the service.
+            </h3>
+        </div>
+    </section>
+</body>
+</html>

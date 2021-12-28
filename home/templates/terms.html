@@ -1,0 +1,61 @@
+{% extends 'loggedout.html' %}
+
+{% block title_text %}Terms & Conditions{% endblock %}
+
+{% block home_active %}class="active"{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="{% url 'index' %}">Home</a></li>
+<li><a href="{% url 'terms' %}">terms & conditions</a></li>
+{% endblock %}
+
+{% block contents %}
+<div class="panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">Terms & Conditions</h3>
+	</div>
+	<div class="panel-body">
+		<p class="lead">The terms and conditions listed below, as well as any other law or regulation 
+		that applies to this website (the ‘Site’), the Internet or the Worldwide Web, 
+		apply to all Site users.</p>
+		
+		<p class="lead">Your access to and use of the Site is subject to the following terms 
+		and conditions and all applicable laws. By accessing and browsing the Site, 
+		you accept, without limitation or qualification, the Terms and Conditions.</p>
+		
+		<p class="lead">Your use of and browsing in the Site are at your risk. Neither 
+		‘Forgotten Empires’ nor its affiliated entities, nor any  other party involved in 
+        creating, producing, or delivering the Site, is liable for any direct, incidental, 
+        consequential, indirect, or punitive damages or losses arising out of your access to, 
+        or use of, the Site.</p>
+		
+		<p class="lead">‘Forgotten Empires’ also assumes no responsibility, and shall not be liable for,
+		any damage to, or virus that may infect, your computer equipment or other
+		property on account of your access to, use of browsing in the Site or your
+		downloading of any materials.
+		Everything on the Site is provided to you “AS IS” WITHOUT WARRANTY OF ANY KIND,
+		EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+		WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+		NON-INFRINGEMENT.</p>
+		
+		<p class="lead">‘Forgotten Empires’ has not reviewed any or all of the sites linked to the Site
+		and is not responsible for the content or the privacy policies of any off-site
+		pages or any other sites linked to the Site.</p>
+		
+		<p class="lead">You are prohibited from posting or transmitting any unlawful, threatening,
+		defamatory, obscene, scandalous, inflammatory or profane material or any
+		material that could constitute or encourage conduct that would be considered a
+		criminal offence, give rise to civil liability, or otherwise violate any law.
+		‘Forgotten Empires’ will fully cooperate with any law enforcement authorities or
+		court order requesting or directing ‘Forgotten Empires’ to disclose the identity of
+		anyone posting any such information or materials and reserves the right to
+		remove any such materials at any time from this Site.</p>
+		
+		<p class="lead">The Site is intended for recreational purposes only. It is not deemed secure,
+        and as such you are not permitted to enter any data which might be used to identify your person, 
+        including real name, address, or any other type of identifying data, in usernames, passwords, or 
+        any other area.</p>
+		
+	</div>
+</div>
+{% endblock %}

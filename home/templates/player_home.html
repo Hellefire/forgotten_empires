@@ -1,0 +1,13 @@
+{% extends 'loggedin.html' %}
+
+{% block title_text %}Welcome to Forgotten Empires{% endblock %}
+
+{% block home_active %}class="active"{% endblock %}
+
+{% block breadcrumbs %}
+<li class="active"><a href="/empires">home</a></li>
+{% endblock %}
+
+{% block contents %}
+Welcome Player {{ user.username }}
+{% endblock %}

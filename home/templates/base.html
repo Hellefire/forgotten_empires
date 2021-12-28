@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'empires/css/main.css' %}" />
+        <script src="https://kit.fontawesome.com/9910897e01.js" crossorigin="anonymous"></script>
+        {% load django_bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        {% block extrahead %}{% endblock %}
+    </head>
+    <body>
+        <div id="id_prodWrapper">
+            <!-- Header -->
+            <header id="id_header" class="header clr-bth flt-left">
+                <div id="id_div_settings">
+                    {% block logged_in_settings %}{% endblock %}
+                </div>
+            </header>
+            <!-- end Header-->
+            <!-- Main -->
+            <main>
+                {% block breadcrumb_display %}{% endblock %}
+                {% block title_display %}{% endblock title_display %}
+                <div class="container-fluid">
+                    <div id='messages'>
+                        {% block messages %}{% bootstrap_messages %}{% endblock %}
+                    </div>
+        
+                    <div id='contents'>
+                        {% block contents %}{% endblock %}
+                    </div>
+                </div>
+            </main>
+            <!-- end Main-->
+            <!-- Footer -->
+            <footer id="id_footer" class="footer navbar-fixed-bottom">
+                <div>
+                    <p>{% block footer %}{% endblock %}</p>
+                    <p>© {% now 'Y' %} Forgotten Empires</p>
+                </div>
+            </footer>
+            <!-- End Footer -->
+        </div>
+    </body>
+</html>

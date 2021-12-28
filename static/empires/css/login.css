@@ -1,0 +1,135 @@
+@import url('base.css');
+
+section.wrapper-login {
+    background: #fff;
+    border: 1px solid #a1a2a3;
+    box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.45);
+    margin: 50px auto 0px auto;
+    min-height: 538px;
+    -moz-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.45);
+    padding: 10px;
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(50, 50, 50, 0.45);
+    width: 300px;
+}
+
+.logo {
+    background-image: url('../images/eye.png');
+    background-repeat: no-repeat;
+    background-size: 60px;
+    display: block;
+    float: right;
+    height: 60px;
+    width: 157px;
+}
+
+.welcomeText {
+    letter-spacing: 1px;
+    padding: 10px 0;
+}
+
+.username, .password {
+    color: #ddd;
+    margin: 7px 0;
+    padding-left: 3px;
+    position: relative;
+    width: 100%;
+}
+
+.chbox {
+    margin: 2px 0;
+    width: 101px;
+    height: 42px;
+}
+
+.rememberMe {
+    color: #4b2582;
+    padding: 5px 0 3px 0;
+}
+
+#id_RememberMe {
+    display: block; /* this can be disabled for security reason, note: here is just reminder, disable this option on server side  */
+}
+
+.rememberMe .check {
+    display: inline-table;
+}
+
+.textRemembMe {
+    float: right;
+    margin-right: 5px;
+    margin-top: -1px;
+}
+
+input[type=text]:not(.basic), input[type=tel]:not(.basic), input[type=email]:not(.basic), input[type=password]:not(.basic), select:not(.basic), textarea:not(.basic) {
+    background: #dcdcdc;
+    border: solid 1px #dcdcdc;
+    height: 35px;
+    letter-spacing: 2px;
+    margin: 3px 0;
+    padding: 5px 10px;
+    width: 275px;
+}
+
+input[type="text"]:focus, input[type="text"].focus, input[type=password]:focus, input[type=password] .focus {
+    border: solid 1px #dcdcdc;
+    box-shadow: 0 0 1px 1px #4b2582;
+    -moz-box-shadow: 0 0 1px 1px #4b2582;
+    -webkit-box-shadow: 0 0 1px 1px #4b2582;
+}
+
+.login-msg {
+    color: #ff0000;
+    letter-spacing: 1px;
+    text-align: center;
+    position:relative;
+    float:left;
+}
+
+.msg-block {
+    height: 20px;
+    margin: 0px auto;
+    width: 298px;
+}
+
+#msgLogin {
+    display: block; /* 'display none' set up as default, when user login, change to 'display block' */
+}
+
+.login-footer {
+    color: #858585;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.login-footer a {
+    color: #4b2582;
+    text-decoration: none;
+}
+
+.btn-login {
+    background-color: #4B2582;
+    background-repeat: repeat-y;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.571em;
+    height: 50px;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.gradient-text {
+    color: #000;
+}
+
+.title {
+    color: #000;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.strong {
+    font-family: HurmeGeometricSans3-Bold;
+    font-style: normal;
+    font-weight: normal;
+}
