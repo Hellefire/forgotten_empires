@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block logged_in_settings %}
+<div class="LogOff flt-right">
+    <h4><a style="text-decoration: none; color: black" href="{% url 'user_login' %}">Login</a></h4>
+</div>
+{% endblock %}
+
+{% block title_display %}
+<div class="jumbotron">
+	<div class="container-fluid">
+		<h1>{% block title_text %}{% endblock %}</h1>		
+	</div>
+</div>
+{% endblock title_display %}
+
+{% block breadcrumb_display %}
+<div class="container-fluid">
+    <div class="row">
+    	<ol class="breadcrumb text-lowercase">
+        	{% block breadcrumbs %}{% endblock %}
+        </ol>
+    </div>
+</div>
+{% endblock %}

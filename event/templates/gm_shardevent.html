@@ -1,0 +1,40 @@
+{% extends 'gm_home.html' %}
+
+{% block shardevent_active %}class="active"{% endblock %}
+
+{% block title_text %}
+Shard Events
+{% endblock %}
+
+{% load static %}
+{% block extrahead %}
+{{ block.super }}
+{% endblock %}
+
+{% block site_page_title %}
+<div class="panel-heading">
+    <h4 class="panel-title">
+        <i class="fa fa-group"></i> Shard Events
+    </h4>
+</div>
+{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/empires">home</a></li>
+<li><a href="{% url 'gm_shard_events' %}">shard events</a></li>
+{% endblock %}
+
+{% block main_panel_layout %}
+<div class="panel">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i class="fa fa-group"></i> Shard Events
+        </h4>
+    </div>
+    <div class="panel-body" id="id_shard_events">
+        <div>
+            Here Be a List of Shard Events
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -45,7 +45,7 @@ class TargetType(models.Model):
 
 class Version(models.Model):
     version = models.CharField(unique=True, max_length=32)
-    created = models.DateTimeField()
+    created = models.DateTimeField(auto_now_add=True)
     notes = models.TextField()
 
     class Meta:

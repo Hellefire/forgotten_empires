@@ -16,7 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from home import views as home_views
+
+
 urlpatterns = [
     path('empires/', include('home.urls')),
     path('empires/admin/', admin.site.urls),
+    path('accounts/login/', home_views.user_login, name='user_login'),
+    path('accounts/logout/', home_views.logout, name='user_logout'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('empires/characters/', include('character.urls')),
+    path('empires/events/', include('event.urls')),
 ]
