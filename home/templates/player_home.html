@@ -2,12 +2,34 @@
 
 {% block title_text %}Welcome to Forgotten Empires{% endblock %}
 
-{% block home_active %}class="active"{% endblock %}
-
 {% block breadcrumbs %}
 <li class="active"><a href="/empires">home</a></li>
 {% endblock %}
 
 {% block contents %}
-Welcome Player {{ user.username }}
-{% endblock %}
+<div class="row">
+    Welcome Player {{ user.username }}
+</div>
+<div class="row">
+	<div class="col-md-2">
+		<!-- Nav tabs -->
+		<div class="panel">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" {% block home_active %}{% endblock %}>
+                    <a href="{% url 'index' %}" role="tab">
+                        <i class="fa fa-info-circle fa-lg fa-fw"></i> home
+                    </a>
+                </li>
+                <li role="presentation" {% block character_active %}{% endblock %}>
+                    <a href="{% url 'character_list' %}" role="tab">
+                        <i class="fa fa-user fa-lg fa-fw"></i> characters
+                    </a>
+                </li>
+            </ul>
+	    </div>
+	</div>
+	<div class="col-md-10" role="main">
+		{% block main_panel_layout %}{% endblock main_panel_layout %}
+	</div>
+</div>
+{% endblock contents %}

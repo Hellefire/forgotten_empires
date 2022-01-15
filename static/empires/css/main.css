@@ -71,7 +71,7 @@ body {
 }
 
 #id_img_logo {
-    height: 60px;
+    height: 40px;
     width: auto;
 }
 
@@ -137,4 +137,22 @@ ol.breadcrumb {
 
 .jumbotron h1 {
     font-size: 2em;
+}
+
+.panel-info > .panel-footer + .panel-collapse > .panel-body {
+    border-bottom-color: #4b2582;
+}
+
+.panel-title {
+    border-bottom-color: #4b2582;
+    padding: 15px;
+}
+
+tr.selectable_row:hover {
+    cursor: pointer;
+}
+
+.button_batting_bottom
+{
+	height: 100px;
 }

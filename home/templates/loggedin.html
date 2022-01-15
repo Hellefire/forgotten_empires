@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title_display %}
-{% load static %}
 <div class="jumbotron">
 	<div class="container-fluid">
-		<h1><img id='id_img_logo' src="{% static 'empires/images/eye.png' %}" alt="Logo"/>{% block title_text %}{% endblock %}</h1>
+		<h1>{% block title_text %}{% endblock %}</h1>
 	</div>
 </div>
 {% endblock title_display %}
@@ -22,6 +21,10 @@
 {% endblock %}
 
 {% block logged_in_settings %}
+{% load static %}
+<div class="flt-left">
+    <img id='id_img_logo' src="{% static 'empires/images/eye.png' %}" alt="Logo"/>
+</div>
 <div class="LogOff flt-right">
 	<a id="id_logoff" style="text-decoration: none; color: black" href="{% url 'user_logout' %}"><i class="fa fa-power-off"></i> log-off</a>
 </div>

@@ -1,0 +1,130 @@
+{% extends extend %}
+
+{% block character_active %}class="active"{% endblock %}
+
+{% block title_text %}
+View Character
+{% endblock %}
+
+{% load static %}
+{% block extrahead %}
+{{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/empires">home</a></li>
+<li><a href="{% url 'character_list' %}">characters</a></li>
+<li><a href="{% url 'character_view' object.id  %}">{{ object.name }} details</a></li>
+{% endblock %}
+
+{% block main_panel_layout %}
+<div id="details-panel" class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <i class="fa fa-info-circle"></i> Character Details - {{ object.name }}
+        </h3>
+    </div>
+    <div class="panel-body" id="id_character_details">
+        {% if perms.character.change_character %}
+            <a id="id_edit_character" class="btn btn-success" href="{% url 'character_update_gm' object.id %}"><i class="fa fa-pencil-square-o"></i> edit</a>
+        {% endif %}
+        <br/>
+        <table class="table table-striped">
+            {% if gm_view %}
+            <tr>
+                <td>Player: </td>
+                <td>{{ object.player.name }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td>Name: </td>
+                <td>{{ object.name }}</td>
+            </tr>
+            <tr>
+                <td>Race: </td>
+                <td>{% if object.subrace %}{{ object.subrace }}{% else %}{{ object.race }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Class: </td>
+                <td>{{ object.charclass }}</td>
+            </tr>
+            <tr>
+                <td>SKILLS</td>
+                <td></td>
+            </tr>
+            {% for skill_type, skill_list in object.skills_dict.base.items %}
+            <tr>
+                <td>{{ skill_type }}</td>
+                <td>
+                    <table class="table table-striped">
+                        <thead><th>skill</th><th>level</th></thead>
+                        <tbody>
+                            {% for skill in skill_list %}
+                                {% if skill.id in object.skills_dict.handed %}
+                                    {% for skill_id, hand_dict in object.skills_dict.handed.items %}
+                                        {% if skill_id == skill.id %}
+                                            {% for hand, level in hand_dict.items %}
+                                                <tr>
+                                                    <td>{{ skill.name }} - {{ hand }} hand</td>
+                                                    <td>{{ level }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td>{{ skill.name }}</td>
+                                    <td>{{ skill.level }}</td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td>No skills</td></tr>
+            {% endfor %}
+            {% if 'alchemy' in object.slots_dict %}
+            <tr>
+                <td>ALCHEMY</td>
+                <td>
+                    <table class="table table-striped">
+                        <thead><th>level</th><th>specialty</th><th>slots</th></thead>
+                        <tbody>
+                            {% for alchemy in object.slots_dict.alchemy %}
+                            <tr>
+                                <td>{{ alchemy.level }}</td>
+                                <td>{% if alchemy.specialty %}{{ alchemy.specialty }}{% endif %}</td>
+                                <td>{{ alchemy.slots }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endif %}
+            {% if 'spells' in object.slots_dict %}
+            <tr>
+                <td>SPELLS</td>
+                <td>
+                    <table class="table table-striped">
+                        <thead><th>school</th><th>specialty</th><th>level</th><th>slots</th></thead>
+                        <tbody>
+                            {% for spell in object.slots_dict.spells %}
+                            <tr>
+                                <td>{{ spell.school }}</td>
+                                <td>{% if spell.specialty %}{{ spell.specialty.name }}{% endif %}</td>
+                                <td>{{ spell.level }}</td>
+                                <td>{{ spell.slots }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+</div>
+{% endblock %}

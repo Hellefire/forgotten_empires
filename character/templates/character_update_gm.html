@@ -1,0 +1,196 @@
+{% extends extend %}
+
+{% block character_active %}class="active"{% endblock %}
+
+{% block title_text %}
+{% if character %}Update{% else %}Add{% endif %} Character
+{% endblock %}
+
+{% load static %}
+{% block extrahead %}
+{{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/empires">home</a></li>
+<li><a href="{% url 'character_list' %}">characters</a></li>
+{% if character %}
+<li><a href="{% url 'character_update_gm' character.id %}">update {{ character.name }}</a></li>
+{% else %}
+<li><a href="{% url 'character_update_gm' 0 %}">add character</a></li>
+{% endif %}
+{% endblock %}
+
+{% block main_panel_layout %}
+<form method="post" id="id_character_update">
+    {% csrf_token %}
+    <div class="row">
+	    <div class="col-md-3">
+	        <div class="row">
+                <div class="col-md-12"> 
+					<div class="panel panel-np">
+						<div class="panel-heading">
+							<h4 class="panel-title">
+								<i class="fa fa-stethoscope"></i> Base Character:
+							</h4>
+						</div>
+						<div class="panel-body">
+									{% csrf_token %}
+							<div class="row">
+                                {{ base_form }}
+							</div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+                <div class="col-md-12 top_button">
+                    <button id="id_btn_save" type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i> Save Character</button>
+	                <a class="btn btn-default" href="{% block cancel_location %}{% url 'character_list' %}{% endblock cancel_location %}">
+	                <i class="fa fa-times"></i> Cancel and return to Character List</a>
+                </div>
+            </div>
+            <div class="row button_batting_bottom">
+                <div class="col-md-12 ">  
+                </div>
+            </div>
+		</div>
+		<div class="col-md-9">  
+		    <div class="panel panel-np">
+		        <div class="panel-heading">
+		            <h4 class="panel-title">
+		                <i class="fa fa-broadcast-tower"></i> Skills
+		            </h4>
+		        </div>
+		        <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Skill</th>
+								<th>Hand</th>
+								<th>Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ skill_formset.management_form }}
+                        {% for skform in skill_formset %}
+                            <tr>
+                                <td class="{% if skform.skill.errors %}has-error{% elif skform.is_bound %}has-success{% endif %}">
+                                    {{ skform.skill }}
+		                            {% if skform.skill.errors %}
+                                    <span class="help-block">
+                                        {% for error in skform.skill.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
+                                </td>
+		                        <td class="{% if skform.hand.errors %}has-error{% elif skform.is_bound %}has-success{% endif %}">
+                                    {{ skform.hand }}
+		                            {% if skform.hand.errors %}
+                                    <span class="help-block">
+                                        {% for error in skform.hand.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
+		                        </td>
+		                        <td>
+                                    {{ skform.level }}
+                                </td>
+		                    </tr>
+					{% endfor %}
+                        </tbody>
+                    </table>
+				</div>
+			</div>
+		    <div class="panel panel-np">
+		        <div class="panel-heading">
+		            <h4 class="panel-title">
+		                <i class="fa fa-broadcast-tower"></i> Alchemy Slots
+		            </h4>
+		        </div>
+		        <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Specialty</th>
+								<th>Level</th>
+								<th>Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ alchemy_formset.management_form }}
+                        {% for alform in alchemy_formset %}
+                            <tr>
+                                <td class="{% if alform.specialty.errors %}has-error{% elif alform.is_bound %}has-success{% endif %}">
+                                    {{ alform.specialty }}
+		                            {% if alform.specialty.errors %}
+                                    <span class="help-block">
+                                        {% for error in alform.specialty.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
+                                </td>
+		                        <td>
+                                    {{ alform.level }}
+		                        </td>
+		                        <td>
+                                    {{ alform.slots }}
+                                </td>
+		                    </tr>
+					{% endfor %}
+                        </tbody>
+                    </table>
+				</div>
+			</div>
+		    <div class="panel panel-np">
+		        <div class="panel-heading">
+		            <h4 class="panel-title">
+		                <i class="fa fa-broadcast-tower"></i> Spell Slots
+		            </h4>
+		        </div>
+		        <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>School</th>
+                                <th>Specialty</th>
+								<th>Level</th>
+								<th>Slots</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ spell_formset.management_form }}
+                        {% for spform in spell_formset %}
+                            <tr>
+		                        <td>
+                                    {{ spform.school }}
+		                        </td>
+                                <td class="{% if spform.specialty.errors %}has-error{% elif spform.is_bound %}has-success{% endif %}">
+                                    {{ spform.specialty }}
+		                            {% if spform.specialty.errors %}
+                                    <span class="help-block">
+                                        {% for error in spform.specialty.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </span>
+                                    {% endif %}
+                                </td>
+		                        <td>
+                                    {{ spform.level }}
+		                        </td>
+		                        <td>
+                                    {{ spform.slots }}
+                                </td>
+		                    </tr>
+					{% endfor %}
+                        </tbody>
+                    </table>
+				</div>
+			</div>
+        </div>
+    </div>
+</form>
+{% endblock %}

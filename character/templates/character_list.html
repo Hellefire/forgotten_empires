@@ -1,0 +1,55 @@
+{% extends extend %}
+
+{% block character_active %}class="active"{% endblock %}
+
+{% block title_text %}
+Characters
+{% endblock %}
+
+{% load static %}
+{% block extrahead %}
+{{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/empires">home</a></li>
+<li><a href="{% url 'character_list' %}">characters</a></li>
+{% endblock %}
+
+{% block main_panel_layout %}
+<div class="panel">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <i class="fa fa-user"></i> Characters
+        </h4>
+    </div>
+    <div class="panel-body" id="id_character_list">
+        {% if gm_view %}
+            <a id="id_create_character" class="btn btn-success" href="{% url 'character_update_gm' 0 %}"><i class="fa fa-plus-circle"></i> add</a>
+        {% endif %}
+        <br/>
+        <table id="id_tbl_characters" class="table table-striped">
+            <thead>
+                <tr>
+                    {% if gm_view %}<th>Player</th>{% endif %}
+                    <th>Name</th>
+                    <th>Race</th>
+                    <th>Class</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for character in object_list %}
+                <tr>
+                    {% if gm_view %}<td>{{ character.player }}</td>{% endif %}
+                    <td><a href="{% url 'character_view' character.id %}">{{ character.name }}</a></td>
+                    <td>{{ character.race }}{% if character.subrace %} ({{ character.subrace.name }}){% endif %}</td>
+                    <td>{{ character.charclass }}</td>
+                </tr>
+                {% empty %}
+                <tr>No existing characters</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
