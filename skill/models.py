@@ -51,6 +51,9 @@ class Skill(models.Model):
         db_table = 'skill'
         unique_together = (('name', 'skilltype'),)
 
+    def is_handed(self):
+        return hasattr(self, 'handedskill')
+
     def __str__(self):
         return '{} - {}'.format(self.name, str(self.skilltype))
 
